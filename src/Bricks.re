@@ -2,9 +2,8 @@ open Belt;
 
 type builder;
 type fragment = {
-  .
-  "str": string,
-  "vals": Pg.values,
+  str: string,
+  vals: Pg.values,
 };
 
 /* Remove any undefined values from an object that we are about to set */

@@ -8,25 +8,22 @@ type request;
 /* TODO: If you're in the browser, binary content will be decoded as a UTF-8 string
    and placed in the "text" attribute, and "body" will be null. That's not great. */
 type response = {
-  .
-  "status": int,
-  "body": Js.Json.t,
-  "headers": Js.Dict.t(string),
+  status: int,
+  body: Js.Json.t,
+  headers: Js.Dict.t(string),
 };
 type binaryResponse = {
-  .
-  "status": int,
-  "text": string,
-  "body": Node.Buffer.t,
-  "headers": Js.Dict.t(string),
+  status: int,
+  text: string,
+  body: Node.Buffer.t,
+  headers: Js.Dict.t(string),
 };
 
 type rawError = {
-  .
-  "status": option(int),
+  status: option(int),
   /* Use this attribute in the case of an error that doesn't yield
      a status or a response, like a network error */
-  "message": string,
+  message: string,
 };
 
 type error = {
@@ -119,7 +116,7 @@ let toPromise = (r: request): Pom.pomWithError(response, error) =>
   ->Pom.fromJsPromise
   ->Pom.mapErr(e => {
       let rawError: rawError = Obj.magic(e);
-      {status: rawError##status, message: rawError##message};
+      {status: rawError.status, message: rawError.message};
     });
 
 let toPromiseExpectBinary =
@@ -129,7 +126,7 @@ let toPromiseExpectBinary =
   ->Pom.fromJsPromise
   ->Pom.mapErr(e => {
       let rawError: rawError = Obj.magic(e);
-      {status: rawError##status, message: rawError##message};
+      {status: rawError.status, message: rawError.message};
     });
 
 let finish = (request: request): pomWithError(response, error) =>

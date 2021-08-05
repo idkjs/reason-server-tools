@@ -17,7 +17,7 @@ module Abstract = {
       | None => Bricks.sql(text)
       };
     pool
-    ->Pg.query({"text": fragment##str, "values": fragment##vals})
+    ->Pg.query({text: fragment.str, values: fragment.vals})
     ->map(a => a##rows);
   };
 };

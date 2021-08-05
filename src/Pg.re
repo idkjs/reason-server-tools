@@ -1,8 +1,8 @@
 type pool = {
-  .
-  "totalCount": int,
-  "idleCount": int,
-  "waitingCount": int,
+
+  totalCount: int,
+  idleCount: int,
+  waitingCount: int,
 };
 type client;
 [@bs.module "pg"] [@bs.new]
@@ -29,9 +29,8 @@ module Types = {
 
 type values;
 type queryPayload = {
-  .
-  "text": string,
-  "values": values,
+  text: string,
+  values: values,
 };
 
 [@bs.send]
@@ -57,9 +56,9 @@ external onRemove: (pool, [@bs.as "remove"] _, client => unit) => unit = "on";
 
 let poolStats = (pool: pool) =>
   "totalCount="
-  ++ string_of_int(pool##totalCount)
+  ++ string_of_int(pool.totalCount)
   ++ ",idleCount="
-  ++ string_of_int(pool##idleCount)
+  ++ string_of_int(pool.idleCount)
   ++ ",waitingCount="
-  ++ string_of_int(pool##waitingCount)
+  ++ string_of_int(pool.waitingCount)
   ++ ",";
